@@ -1,0 +1,134 @@
+﻿{{template "base/base.html" .}}
+{{define "head"}}
+{{end}}
+{{define "body"}}
+    <div id="wrapper">
+        {{template "base/navbar.html" .}}
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-lg-12">
+                     <h2>Payment</h2>   
+                    </div>
+                </div><!-- /. ROW  -->            
+                 
+                <hr />
+                <div class="alert alert-danger">
+                <p class="help-block">付款延長退群時限</p>
+                <div class="row">
+                    <form class="form-group" action="/Payment/AddQQPay" method="post">    
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>QQ</label>
+                                <input class="form-control" id="qq" name="qq"/>
+                            </div>
+                        </div><!-- /. COL1  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>群</label>
+                                <select class="form-control" name="idGroup" id="idGroup">
+                                    {{range $key, $val := .groupInfoMap}}
+                                    <option value="{{$val.IdGroup}}">{{$val.GroupName}}</option>
+                                    {{end}}
+                                </select>
+                            </div>
+                        </div><!-- /. COL  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>起始日期</label>
+                                <input class="form-control" id="startdate" name="startdate" value="2017-06-15 15:00:00" />
+                            </div>
+                        </div><!-- /. COL  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>天數</label>
+                                <input class="form-control" id="extenddays" name="extenddays" />
+                            </div>
+                        </div><!-- /. COL  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>金額</label>
+                                <input class="form-control"  id="amount" name="amount"/>
+                            </div>
+                        </div><!-- /. COL  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>送出</label>
+                                <button class="form-control" type="submit">Add/Update</button>
+                            </div>
+                        </div><!-- /. COL  --> 
+                    </form>
+                </div><!-- /. ROW  --> 
+                </div><!-- /. alert  --> 
+
+
+
+                <hr />
+                <div class="alert alert-info">
+                <p class="help-block">QQ退群時限列表查詢</p>
+                <div class="row">
+                    <form class="form-group" action="/Payment" method="get">  
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>QQ</label>
+                                <input class="form-control" id="QQ" name="QQ"/>
+                            </div>
+                        </div><!-- /. COL1  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>送出</label>
+                                <button class="form-control" type="submit">Search</button>
+                            </div>
+                        </div><!-- /. COL  --> 
+                    </form>
+                </div><!-- /. ROW  --> 
+                </div><!-- /. alert  --> 
+
+                <hr />
+
+                <h5>退群時限列表</h5>
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>QQ</th>
+                                    <th>群名</th>
+                                    <th>起始日期</th>
+                                    <th>退群時限</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range $key, $val := .qqExpireInfoMap}}
+                                <tr>
+                                    <td>{{$key}}</td>
+                                    <td>{{$val.QQ}}</td>
+                                    <td>{{$val.GroupName}}</td>
+                                    <td>{{$val.StartDate}}</td>
+                                    <td>{{$val.ExpireDate}}</td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                           
+             
+             
+            </div><!-- /. PAGE INNER  -->
+
+         
+        </div><!-- /. PAGE WRAPPER  -->
+    
+    {{template "base/footer.html" .}}
+
+          
+
+     </div><!-- /. WRAPPER  -->
+    
+     {{template "base/commonjs.html" .}}
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+    
+   
+{{end}}

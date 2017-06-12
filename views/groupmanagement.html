@@ -1,0 +1,86 @@
+﻿{{template "base/base.html" .}}
+{{define "head"}}
+{{end}}
+{{define "body"}}
+    <div id="wrapper">
+        {{template "base/navbar.html" .}}
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-lg-12">
+                     <h2>QQ群管理</h2>   
+                    </div>
+                </div><!-- /. ROW  -->            
+                 
+                <hr />
+                <div class="alert alert-danger">
+                <p class="help-block">新增群QQ</p>
+                <div class="row">
+                    <form class="form-group" action="/GroupManagement/AddQQGroup" method="post">    
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>群QQ號</label>
+                                <input class="form-control" id="groupQQ" name="groupQQ"/>
+                            </div>
+                        </div><!-- /. COL1  --> 
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>群名</label>
+                                <input class="form-control" id="groupname" name="groupname"/>
+                            </div>
+                        </div><!-- /. COL  --> 
+                        
+                        <div class="col-lg-2 ">
+                             <div class="form-group">
+                                <label>送出</label>
+                                <button class="form-control" type="submit">新增</button>
+                            </div>
+                        </div><!-- /. COL  --> 
+                    </form>
+                </div><!-- /. ROW  --> 
+                </div><!-- /. alert  --> 
+
+                <hr />
+
+                <h5>QQ群列表</h5>
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>群QQ號</th>
+                                    <th>群名</th>
+                                    <th>刪除</th>
+                                    <th>編輯</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range $key, $val := .groupInfoMap}}
+                                <form class="form-group" action="/GroupManagement/EditQQGroup" method="post">    
+                                    <tr>
+                                        <td>{{$key}}<input type="hidden" id="idGroup" name="idGroup" value="{{$val.IdGroup}}"/></td>
+                                        <td><input class="form-control" id="groupQQ" name="groupQQ" value="{{$val.QQ}}"/></td>
+                                        <td><input class="form-control" id="groupname" name="groupname" value="{{$val.GroupName}}"/></td>
+                                        <td><a href="/GroupManagement/DelQQGroup/{{$val.IdGroup}}"><button class="form-control" type="button">刪除</button></a></td>
+                                        <td><button class="form-control" type="submit">編輯</button></td>
+                                    </tr>
+                                </form>
+                                {{end}}
+                            </tbody>
+                        </table>
+                           
+             
+             
+            </div><!-- /. PAGE INNER  -->
+
+         
+        </div><!-- /. PAGE WRAPPER  -->
+    
+    {{template "base/footer.html" .}}
+
+          
+
+     </div><!-- /. WRAPPER  -->
+    {{template "base/commonjs.html" .}}
+    
+   
+{{end}}
